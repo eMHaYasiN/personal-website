@@ -3,49 +3,42 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 ---
 
-<BaseLayout title = "Projects" sideBarActiveItemID="projects">
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
   <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects Header</div>
+    <div class="text-3xl w-full font-bold mb-5">
+      <span class="text-primary font-mono text-xl mr-2">01.</span>Work Projects
+    </div>
   </div>
 
   <HorizontalCard
-    title="Demo Project 1"
+    title="5G KPI Report Upgrade"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    desc="Upgrade weekly 5G KPI reporting dari format CSV tradisional ke dashboard interaktif dengan AI. Pipeline mencakup anomaly detection otomatis, auto-generated insight, dan executive summary per minggu — menggantikan proses manual yang memakan waktu."
     url="#"
-    badge="NEW"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+    badge="ON PROGRESS"
+    tags={["Python", "SQL", "Streamlit", "AI"]}
   />
 
   <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Projects Header</div>
+    <div class="text-3xl w-full font-bold mb-5 mt-10">
+      <span class="text-primary font-mono text-xl mr-2">02.</span>Side Projects
+    </div>
   </div>
 
   <HorizontalCard
-    title="Demo Project 3"
+    title="GadgetKaca"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    desc="Platform review tech berbasis data untuk pengguna produktif. Setiap review menjawab satu pertanyaan: apakah produk ini worth dibeli untuk kerja dan kehidupan nyata? Tidak ada sponsor, tidak ada bias — murni data dan pemakaian jangka panjang."
     url="#"
-    badge="FOSS"
+    badge="COMING SOON"
+    tags={["Content", "YouTube", "Data-driven"]}
   />
   <div class="divider my-0"></div>
   <HorizontalCard
-    title="Demo Project 4"
+    title="TikTok Affiliate"
     img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    desc="Side project monetisasi konten melalui TikTok Affiliate — mengkombinasikan content creation dengan analisis produk untuk memilih item yang relevan dan berpotensi konversi tinggi."
     url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 5"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+    tags={["Content", "TikTok", "Affiliate"]}
   />
 </BaseLayout>
