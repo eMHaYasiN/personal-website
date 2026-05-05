@@ -24,14 +24,7 @@ const {
     {TRANSITION_API && <ViewTransitions />}
   </head>
   <body>
-    <div id="spotlight" class="pointer-events-none fixed inset-0 z-30 transition-all duration-300" style="background: radial-gradient(600px at 50% 50%, rgba(100, 255, 218, 0.06), transparent 80%)"></div>
-    <script>
-      document.addEventListener('mousemove', (e) => {
-        const el = document.getElementById('spotlight');
-        if (el) el.style.background = `radial-gradient(600px at ${e.clientX}px ${e.clientY}px, rgba(100, 255, 218, 0.06), transparent 80%)`;
-      });
-    </script>
-    <div class="bg-base-100 drawer lg:drawer-open">
+<div class="bg-base-100 drawer lg:drawer-open">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content bg-base-100">
         <Header title={SITE_TITLE} />

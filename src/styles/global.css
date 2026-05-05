@@ -2,18 +2,9 @@
     display: none;
 }
 
-/* Card hover glow — brittanychiang style */
-.rounded-lg {
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.rounded-lg:hover {
-    box-shadow: 0 0 24px rgba(100, 255, 218, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Teal accent on links */
+/* Teal on links */
 a:hover {
     color: #64ffda;
-    transition: color 0.2s ease;
 }
 
 /* Badge outline pakai teal */
@@ -22,9 +13,14 @@ a:hover {
     color: #64ffda;
 }
 
-/* Sidebar name highlight */
+/* Section heading number */
 .text-primary {
     color: #64ffda !important;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
 }
 
 /* Terminal cursor blink */

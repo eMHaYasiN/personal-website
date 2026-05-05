@@ -1,77 +1,178 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import { getCollection } from "astro:content";
-import createSlug from "../lib/createSlug"
-
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const last_posts = posts.slice(0, 3);
 ---
 
 <BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl font-bold">I'm Mohamad Yasin</div>
-    <div class="text-3xl py-3 font-bold">Data Analyst & Tech Enthusiast</div>
-    <div class="py-2">
-      <text class="text-lg">
-        I work with data to uncover insights and build tools that make information more useful.
-        From telco analytics to personal projects, I enjoy turning raw data into something meaningful —
-        whether it's a dashboard, an automated report, or a data-driven product.
-      </text>
-    </div>
-    <div class="mt-8">
-      <a class="btn" href="https://www.linkedin.com/in/mohamad-yasin-3mh4y4s1n/" target="_blank">Let's connect!</a>
-      <a href="https://github.com/eMHaYasiN" target="_blank" class="btn btn-outline ml-5">
+
+  <!-- ABOUT -->
+  <section id="about" class="pb-16 pt-5">
+    <div class="text-xl py-1" style="color:#8892b0">Hi, my name is</div>
+    <div class="text-5xl font-bold mt-1">Mohamad Yasin.</div>
+    <div class="text-3xl py-3 font-bold" style="color:#8892b0">I turn data into decisions.</div>
+    <p class="text-base leading-relaxed mt-2 max-w-xl" style="color:#8892b0">
+      Senior OSS Engineer with 10+ years in telecom KPI analytics, SQL, and dashboard reporting.
+      Currently transitioning into Data Analytics & Engineering — building modern reporting tools
+      with Python, Streamlit, and Power BI. Based in Jakarta, Indonesia.
+    </p>
+    <div class="mt-8 flex gap-4">
+      <a class="btn btn-sm btn-outline" style="border-color:#64ffda; color:#64ffda;"
+        href="https://www.linkedin.com/in/mohamad-yasin-3mh4y4s1n/" target="_blank">
+        LinkedIn
+      </a>
+      <a class="btn btn-sm btn-outline" style="border-color:#64ffda; color:#64ffda;"
+        href="https://github.com/eMHaYasiN" target="_blank">
         GitHub
       </a>
+      <a class="btn btn-sm btn-outline" style="border-color:#64ffda; color:#64ffda;"
+        href="/cv">
+        CV
+      </a>
     </div>
-  </div>
+  </section>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">
-      <span class="text-primary font-mono text-xl mr-2">01.</span>My last projects {"</>"}
+  <!-- EXPERIENCE -->
+  <section id="experience" class="pb-16">
+    <div class="text-2xl font-bold mb-8">
+      <span class="font-mono mr-2" style="color:#64ffda">01.</span>Experience
     </div>
-  </div>
 
-  <HorizontalCard
-    title="5G KPI Report Upgrade"
-    img="/post_img.webp"
-    desc="Upgrade weekly 5G KPI reporting dari format CSV ke dashboard interaktif dengan AI — mencakup anomaly detection, auto-generated insight, dan executive summary otomatis per minggu."
-    url="#"
-    badge="ON PROGRESS"
-    tags={["Python", "SQL", "Streamlit", "AI"]}
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="GadgetKaca"
-    img="/post_img.webp"
-    desc="Platform review tech berbasis data untuk pengguna produktif. Tidak ada sponsor, tidak ada bias — murni data dan pemakaian jangka panjang untuk menjawab apakah sebuah produk worth dibeli."
-    url="#"
-    badge="COMING SOON"
-    tags={["Content", "YouTube", "Data-driven"]}
-  />
+    <div class="flex flex-col gap-8">
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">
-      <span class="text-primary font-mono text-xl mr-2">02.</span>Latest from blog
+      <div class="grid grid-cols-[9rem_1fr] gap-4">
+        <div class="text-xs pt-1 leading-relaxed" style="color:#8892b0">Aug 2020 — Present</div>
+        <div>
+          <div class="font-semibold">Sr OSS Engineer · PT CCSI</div>
+          <div class="text-sm mb-2" style="color:#64ffda">Telkomsel National Planning</div>
+          <p class="text-sm leading-relaxed" style="color:#8892b0">
+            Develop Weekly & Monthly National RAN performance dashboards. Author complex SQL queries
+            against multi-vendor OSS databases. Administer in-house MariaDB analytics environment
+            on Huawei FusionServer Pro 2288H.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="badge badge-outline badge-sm">SQL</span>
+            <span class="badge badge-outline badge-sm">MariaDB</span>
+            <span class="badge badge-outline badge-sm">Python</span>
+            <span class="badge badge-outline badge-sm">Excel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[9rem_1fr] gap-4">
+        <div class="text-xs pt-1 leading-relaxed" style="color:#8892b0">Jan 2019 — Jul 2020</div>
+        <div>
+          <div class="font-semibold">Sr OSS Engineer · PT CCSI</div>
+          <div class="text-sm mb-2" style="color:#64ffda">Indosat GFR Project</div>
+          <p class="text-sm leading-relaxed" style="color:#8892b0">
+            Delivered Hourly, Daily, and Weekly regional support dashboards.
+            Provided 4G MR data extraction and executed GFR workflows and HQ SQL/PRS requests.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="badge badge-outline badge-sm">SQL</span>
+            <span class="badge badge-outline badge-sm">Huawei OSS</span>
+            <span class="badge badge-outline badge-sm">KPI Analytics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[9rem_1fr] gap-4">
+        <div class="text-xs pt-1 leading-relaxed" style="color:#8892b0">Sep 2017 — May 2018</div>
+        <div>
+          <div class="font-semibold">Sr OSS Engineer · PT Sinergi</div>
+          <div class="text-sm mb-2" style="color:#64ffda">H3I Project — Nokia</div>
+          <p class="text-sm leading-relaxed" style="color:#8892b0">
+            Delivered 2G/3G/4G KPI Daily and Hourly reports. Provided raw data, alarm extracts,
+            and implemented network parameter changes for the optimization team.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="badge badge-outline badge-sm">Nokia NetAct</span>
+            <span class="badge badge-outline badge-sm">KPI Analytics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[9rem_1fr] gap-4">
+        <div class="text-xs pt-1 leading-relaxed" style="color:#8892b0">Dec 2016 — Sep 2017</div>
+        <div>
+          <div class="font-semibold">OSS Engineer · PT Lexcorp</div>
+          <div class="text-sm mb-2" style="color:#64ffda">Densification XL — Ericsson</div>
+          <p class="text-sm leading-relaxed" style="color:#8892b0">
+            Delivered 2G/3G KPI dashboards, implemented parameter changes,
+            and produced Alarm & Interference reports.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="badge badge-outline badge-sm">Ericsson OSS-RC</span>
+            <span class="badge badge-outline badge-sm">KPI Analytics</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
 
-  {
-    last_posts.map((post) => (
-      <>
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + createSlug(post.data.title, post.slug)}
-          target="_self"
-          badge={post.data.badge}
-        />
-        <div class="divider my-0" />
-      </>
-    ))
-  }
+    <div class="mt-8">
+      <a href="/cv" class="text-sm font-semibold" style="color:#64ffda">
+        View full CV →
+      </a>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="pb-16">
+    <div class="text-2xl font-bold mb-8">
+      <span class="font-mono mr-2" style="color:#64ffda">02.</span>Projects
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="rounded-lg p-5" style="background:#112240; border:1px solid #1d3461;">
+        <div class="flex justify-between items-start mb-3">
+          <div class="font-semibold">5G KPI Report Upgrade</div>
+          <span class="badge badge-outline badge-xs">On Progress</span>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:#8892b0">
+          Upgrade weekly 5G KPI reporting dari CSV ke dashboard interaktif — mencakup
+          anomaly detection, auto-generated insight, dan executive summary otomatis per minggu.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge badge-outline badge-sm">Python</span>
+          <span class="badge badge-outline badge-sm">SQL</span>
+          <span class="badge badge-outline badge-sm">Streamlit</span>
+          <span class="badge badge-outline badge-sm">AI</span>
+        </div>
+      </div>
+
+      <div class="rounded-lg p-5" style="background:#112240; border:1px solid #1d3461;">
+        <div class="flex justify-between items-start mb-3">
+          <div class="font-semibold">GadgetKaca</div>
+          <span class="badge badge-outline badge-xs">Coming Soon</span>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:#8892b0">
+          Platform review tech berbasis data untuk pengguna produktif. Tidak ada sponsor,
+          tidak ada bias — murni data dan pemakaian jangka panjang.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="badge badge-outline badge-sm">YouTube</span>
+          <span class="badge badge-outline badge-sm">Data-driven</span>
+          <span class="badge badge-outline badge-sm">Content</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="pb-16">
+    <div class="text-2xl font-bold mb-4">
+      <span class="font-mono mr-2" style="color:#64ffda">03.</span>Contact
+    </div>
+    <p class="text-sm leading-relaxed mb-6 max-w-md" style="color:#8892b0">
+      Open for opportunities, collaboration, or just a conversation about data and tech.
+      Feel free to reach out.
+    </p>
+    <a href="mailto:email.yasin@gmail.com"
+      class="btn btn-sm btn-outline"
+      style="border-color:#64ffda; color:#64ffda;">
+      Say Hello
+    </a>
+  </section>
+
 </BaseLayout>
