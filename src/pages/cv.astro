@@ -3,31 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="cv">
+<BaseLayout title="CV" sideBarActiveItemID="cv">
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Profile</div>
   </div>
 
   <div class="mb-10 text-justify">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </div>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Education</div>
-  </div>
-
-  <div class="time-line-container grid gap-4 mb-10">
-    <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-    />
-    <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-    />
+    Senior OSS Engineer with 10+ years of experience in telecom network operations across major Indonesian operators
+    (Telkomsel, Indosat, XL, H3I) and multi-vendor environments (Huawei, Nokia, Ericsson, ZTE).
+    Strong background in KPI analytics, SQL-based data extraction, and dashboard reporting at national scale.
+    Currently transitioning into Data Analyst / Data Engineering roles — expanding into Power BI, Python, and Streamlit
+    for building modern, data-driven reporting tools.
   </div>
 
   <div class="mb-5">
@@ -36,23 +22,52 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <div class="time-line-container mb-10">
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="Sr OSS Engineer (Huawei) — PT CCSI"
+      subtitle="August 2020 – Present | Telkomsel National Planning, Jakarta"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      Develop and deliver Weekly & Monthly National Support dashboard reports for nationwide RAN performance.
+      Author complex SQL queries against multi-vendor OSS databases for HQ planning requests.
+      Administer in-house MariaDB analytics environment for LTE KPI data on Huawei FusionServer Pro 2288H —
+      including RAID configuration, Windows Server 2022 deployment, and database tuning.
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="Sr OSS Engineer (Huawei) — PT CCSI"
+      subtitle="January 2019 – July 2020 | Indosat GFR Project"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      Delivered Hourly, Daily, and Weekly regional support dashboards.
+      Provided 4G MR (Measurement Report) data extraction and executed GFR workflows and HQ SQL/PRS requests.
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="Sr OSS Engineer (Huawei) — PT GCI"
+      subtitle="August 2018 – December 2018 | Telkomsel Project"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      Built 2G/3G/4G productivity report dashboards and provided weekly regional support.
+      Handled regional HQ requests and ad-hoc analytical queries.
     </TimeLineElement>
+    <TimeLineElement
+      title="Sr OSS Engineer (Nokia) — PT Sinergi"
+      subtitle="September 2017 – May 2018 | H3I Project"
+    >
+      Delivered 2G/3G/4G KPI Daily and Hourly reports.
+      Provided raw data, alarm extracts, and implemented network parameter changes for the optimization team.
+    </TimeLineElement>
+    <TimeLineElement
+      title="OSS Engineer (Ericsson) — PT Lexcorp"
+      subtitle="December 2016 – September 2017 | Densification XL Project"
+    >
+      Delivered 2G/3G KPI dashboards, implemented parameter changes, and produced Alarm & Interference reports.
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="Bachelor of Engineering — Electrical Engineering"
+      subtitle="2000 – 2005 | Institute Technology of Indonesia (ITI), Jakarta"
+    />
   </div>
 
   <div class="mb-5">
@@ -60,33 +75,27 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
   </div>
 
   <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
-    </li>
+    <li>Microsoft Power BI Data Analyst Associate — PL-300 <span class="badge badge-outline badge-sm ml-1">In Progress</span></li>
+    <li>CCNA for Busy People — BIT Education (2008)</li>
+    <li>Interconnecting Cisco Network Devices — Optima Computer School (2005)</li>
   </ul>
 
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Skills</div>
   </div>
 
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
+  <ul class="list-disc md:columns-3 columns-2 mx-6">
+    <li>SQL (Advanced)</li>
+    <li>MariaDB / MySQL</li>
+    <li>Python (Basic)</li>
+    <li>Power BI</li>
+    <li>Streamlit</li>
+    <li>Microsoft Excel</li>
+    <li>Telecom KPI Analytics</li>
+    <li>4G LTE / 3G / 2G</li>
+    <li>Windows Server 2022</li>
+    <li>Huawei OSS Tools</li>
+    <li>Linux (Ubuntu/Debian)</li>
+    <li>Cloudflare / Tailscale</li>
   </ul>
 </BaseLayout>
