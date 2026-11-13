@@ -2,78 +2,642 @@
   "schema": "mhysn-studio-board/v1",
   "title": "MHYSN Studio Board",
   "repo": "eMHaYasiN/mhysn-studio",
-  "snapshot": "2026-11-13",
+  "snapshot": "2026-11-13 sore",
   "main_commit": "b6d40ba",
   "maintainer": "Claude Code (CTO)",
   "how_to_update": "Ubah src/data/studio-board.json di repo eMHaYasiN/personal-website lewat PR. Halaman /studio/, /studio/board.json, dan /studio/board.md dibangun ulang otomatis oleh Vercel setelah merge.",
   "agents": {
-    "claude": { "name": "Claude", "role": "CTO + Production Director" },
-    "chatgpt": { "name": "ChatGPT", "role": "CEO + Editorial Director" },
-    "muse": { "name": "Muse", "role": "Trend Researcher" },
-    "hermes": { "name": "Hermes", "role": "COO + Publishing Operations" },
-    "owner": { "name": "Owner", "role": "Ndoro, final approval" }
+    "claude": {
+      "name": "Claude",
+      "role": "CTO + Production Director"
+    },
+    "chatgpt": {
+      "name": "ChatGPT",
+      "role": "CEO + Editorial Director"
+    },
+    "muse": {
+      "name": "Muse",
+      "role": "Trend Researcher"
+    },
+    "hermes": {
+      "name": "Hermes",
+      "role": "COO + Publishing Operations"
+    },
+    "owner": {
+      "name": "Owner",
+      "role": "Ndoro, final approval"
+    }
   },
   "mandate": {
     "period": "2026-11-12 s/d 2026-12-12",
     "kpis": [
-      { "label": "posting tayang", "value": 0, "target": 12 },
-      { "label": "motion video tayang", "value": 0, "target": 2 },
-      { "label": "hari berjalan", "value": 2, "target": 30 },
-      { "label": "paket di production/approved/published", "value": 0, "target": 12 }
+      {
+        "label": "posting tayang",
+        "value": 0,
+        "target": 12
+      },
+      {
+        "label": "motion video tayang",
+        "value": 0,
+        "target": 2
+      },
+      {
+        "label": "hari berjalan",
+        "value": 2,
+        "target": 30
+      },
+      {
+        "label": "paket di production/ (siap approval: 0)",
+        "value": 1,
+        "target": 12
+      }
     ],
-    "verdict": "Fondasi beres, produksi belum jalan. Organisasi, SOP, dan audit sudah merged. Belum ada satu pun paket konten yang siap Owner setujui. Target minggu 1 (USB-C, Passkey, Prompt Caching) masih di tahap draf atau menunggu approval ulang."
+    "verdict": "Paket produksi pertama (Prompt Caching) sudah jadi, tapi belum bisa diapprove karena akun @mhysn_id belum terverifikasi. USB-C dan Passkey kembali ke ChatGPT untuk revisi. Patch keamanan sync dan mesin approval sudah di PR, menunggu merge Owner. Belum ada yang tayang."
   },
   "next_steps": [
-    { "text": "Review & merge mesin approval studio-approve.", "who": "Claude review → ChatGPT cek SOP → Owner merge" },
-    { "text": "Cek fakta USB-C dan Passkey, lalu buat paket production/ untuk 3 konten minggu 1.", "who": "Claude + ChatGPT" },
-    { "text": "Approval ulang Prompt Caching dengan slug + hash (approval 5 Nov terhapus saat rebrand).", "who": "Owner" },
-    { "text": "Muse memegang 5 draf revisi, batas aturan 3. Selesaikan atau arsipkan 2.", "who": "Muse, diputuskan ChatGPT" },
-    { "text": "Dry-run sync-to-vault.sh sebelum deploy apa pun ke server.", "who": "Hermes, diverifikasi Claude" }
+    {
+      "text": "Verifikasi akun @mhysn_id di Instagram dan TikTok. Ini satu-satunya penghalang paket Prompt Caching.",
+      "who": "Owner"
+    },
+    {
+      "text": "Merge PR #4 s/d #8 (urutan: #5 mesin approval, lalu #8 paket, #6 review, #7 sync, #4 AGENTS).",
+      "who": "Owner; #5 setelah ChatGPT cek SOP"
+    },
+    {
+      "text": "Revisi USB-C dan Passkey sesuai review (batas 16 Nov, lewat itu otomatis ditolak).",
+      "who": "ChatGPT"
+    },
+    {
+      "text": "Setujui A1 (backup) dan A2 (mirror tidak menyentuh Studio/, exit 20), lalu terapkan C4 di server.",
+      "who": "Owner → Hermes"
+    },
+    {
+      "text": "Muse: 5 draf revisi akan otomatis ditolak 15 Nov bila tidak dikerjakan.",
+      "who": "Muse / Hermes"
+    }
   ],
   "columns": [
-    { "id": "todo", "title": "Antre", "color": "muted", "description": "Draf yang belum disentuh reviewer.", "cards": [
-      { "agents": ["chatgpt","claude"], "title": "USB-C sama bentuk, belum tentu sama kemampuan", "body": "Target minggu 1. Explainer evergreen, belum dicek fakta.", "tags": [["draf","n"],["TT · IG · Shorts","n"]], "ref": "agents/chatgpt/2026-11-05-usb-c-bukan-jaminan.md" },
-      { "agents": ["chatgpt","claude"], "title": "Passkey: login tanpa password, lebih aman?", "body": "Target minggu 1. Belum dicek fakta.", "tags": [["draf","n"],["TT · IG · Shorts","n"]], "ref": "agents/chatgpt/2026-11-05-passkey-bukan-password.md" },
-      { "agents": ["chatgpt","claude"], "title": "Kenapa AI bisa jawab salah dengan percaya diri?", "body": "Belum dicek fakta. Bukan prioritas minggu 1.", "tags": [["draf","n"]], "ref": "agents/chatgpt/2026-11-05-ai-bisa-yakin-tapi-salah.md" },
-      { "agents": ["chatgpt"], "title": "Calendar konten 30 hari & editorial brief", "body": "Mandat menuntut maks 3 topik/minggu dipilih tiap Senin. Belum ada file calendar di repo.", "tags": [["belum mulai","n"]], "ref": "strategy/" }
-    ]},
-    { "id": "in_progress", "title": "Dikerjakan", "color": "info", "description": "Ada pemilik dan sedang bergerak.", "cards": [
-      { "agents": ["muse"], "title": "5 draf Muse menunggu revisi", "body": "Apple 10-K agen AI, GoTo LLM 27B, kacamata Meta AI, RAM langka 2030, review Fosi BT20A. Semua berstatus revisi sejak 5 Nov. Melebihi batas 3 draf aktif per penulis.", "tags": [["revisi","warn"],["8 hari diam","bad"]], "ref": "agents/muse/ · review/*.review.md" },
-      { "agents": ["claude"], "title": "Motion video 01 & 02", "body": "Storyboard, motion.html, dan audio dikerjakan di vault Obsidian. Belum masuk production/ di repo.", "tags": [["di luar repo","info"]], "ref": "vault: assets/video-01, video-02" },
-      { "agents": ["claude","chatgpt"], "title": "Template paket produksi per platform", "body": "Template sudah ada; belum dipakai untuk satu konten pun.", "tags": [["template siap","ok"]], "ref": "templates/production-package.md" }
-    ]},
-    { "id": "review", "title": "Menunggu Review / Approval", "color": "warn", "description": "Selesai dibuat, butuh keputusan orang lain.", "cards": [
-      { "agents": ["hermes","claude"], "title": "Mesin approval studio-approve + 20 unit test", "body": "Approval berbasis slug + hash, 10 gate, audit trail. Belum aktif. Butuh review CTO lalu cek SOP oleh CEO. Belum ada PR.", "tags": [["branch tanpa PR","warn"],["+773 baris","n"]], "ref": "feat/studio-approve-engine" },
-      { "agents": ["hermes","claude"], "title": "Audit server Hermes + remediation plan", "body": "Dua dokumen, 916 baris. Menjadi dasar perbaikan sync dan cron.", "tags": [["branch tanpa PR","warn"]], "ref": "docs/hermes-audit-reports-2026-11-12" },
-      { "agents": ["hermes","chatgpt"], "title": "Rekomendasi Social Media Manager", "body": "Saran operasional sosmed dari Hermes. Perlu dinilai CEO.", "tags": [["branch tanpa PR","warn"]], "ref": "docs/hermes-smm-recommendations-2026-11-12" },
-      { "agents": ["owner"], "title": "Prompt caching: tagihan API turun 83%", "body": "Lolos cek fakta Claude. Approval 5 Nov hilang saat rebrand. Perlu paket produksi lalu approval ulang dengan hash.", "tags": [["dicek","ok"],["approval ulang","warn"]], "ref": "agents/hermes/2026-11-05-prompt-caching-tagihan-api.md" }
-    ]},
-    { "id": "blocked", "title": "Terhambat", "color": "bad", "description": "Blocker dari audit 12 Nov. Harus dibuktikan di server/akun, bukan di GitHub.", "cards": [
-      { "agents": ["hermes"], "title": "Skrip sync bisa menghapus file di Studio/", "body": "Batasi delete ke file yang dikelola manifest, backup, uji dry-run.", "tags": [["blocker 1","bad"]], "ref": "scripts/sync-to-vault.sh" },
-      { "agents": ["hermes"], "title": "Retry & antrean saat push gagal", "body": "Perbedaan file bisa hilang dari scan berikutnya. Perlu simulasi gangguan jaringan.", "tags": [["blocker 2","bad"]], "ref": "mirror-obsidian.sh" },
-      { "agents": ["hermes"], "title": "Cron belum terbukti terpasang", "body": "Jadwal di SISTEM.md masih rencana. Cek konfigurasi job, timezone, log.", "tags": [["blocker 3","bad"]], "ref": "SISTEM.md" },
-      { "agents": ["muse","owner"], "title": "Hak upload Muse", "body": "Carousel IG dan video TikTok: bisa. Reels IG dan penjadwalan: belum terbukti sampai posting nyata pertama.", "tags": [["blocker 4","bad"],["sebagian lolos","warn"]], "ref": "agents/muse/reports/MUSE-SOCIAL-ACCESS-AUDIT-2026-11-12.md" },
-      { "agents": ["owner"], "title": "Handle @mhysn_id & wordmark final", "body": "Handle belum diverifikasi aktif; aset brand final belum ada di repo.", "tags": [["blocker 5","bad"]], "ref": "brand/mhysn-brand-guidelines.md" },
-      { "agents": ["hermes","chatgpt"], "title": "Analytics 48 jam / 7 hari", "body": "Baru bisa jalan setelah ada URL publikasi pertama.", "tags": [["blocker 6","bad"],["tergantung posting","n"]], "ref": "published/" }
-    ]},
-    { "id": "done", "title": "Selesai", "color": "ok", "description": "Sudah di main.", "cards": [
-      { "agents": ["chatgpt","owner"], "title": "PR #1 · Struktur CEO & operasi editorial", "body": "Mandat 30 hari, SOP approval & publishing, spesifikasi platform, 3 seri unggulan, spek dashboard approval Obsidian.", "tags": [["merged 12 Nov","ok"]], "ref": "strategy/ · brand/" },
-      { "agents": ["chatgpt","owner"], "title": "PR #2 · Cleanup & konsistensi dokumen", "body": "Rekonsiliasi README/AGENTS/CLAUDE/SISTEM, hapus placeholder, audit 6 blocker.", "tags": [["merged 12 Nov","ok"]], "ref": "strategy/REPOSITORY-CLEANUP-AUDIT-2026-11-12.md" },
-      { "agents": ["muse","owner"], "title": "PR #3 · Trend Radar W46 + audit akses sosmed", "body": "Bahan ide minggu ini dan bukti kemampuan upload Muse.", "tags": [["merged 12 Nov","ok"]], "ref": "agents/muse/reports/" },
-      { "agents": ["claude"], "title": "SISTEM.md · desain besar MHYSN Studio", "body": "Alur research → brief → draf → cek fakta → produksi → approval hash → upload → metrik.", "tags": [["12 Nov","ok"]], "ref": "SISTEM.md" },
-      { "agents": ["claude"], "title": "Rebrand Om Tekno → MHYSN", "body": "Semua dokumen pindah ke @mhysn_id dan #MHYSN.", "tags": [["12 Nov","ok"]], "ref": "commit eb28c89" },
-      { "agents": ["claude"], "title": "Cek fakta 7 draf + aturan gaya antislop", "body": "1 lolos, 6 revisi. Aturan gaya ditulis di AGENTS.md.", "tags": [["5 Nov","ok"]], "ref": "review/" },
-      { "agents": ["claude"], "title": "Kerangka repo + skrip sync ke vault", "body": "Folder agents/review/approved/published, template draf & review, LF untuk skrip Linux.", "tags": [["5 Nov","ok"]], "ref": "commit 248d66d" },
-      { "agents": ["muse","claude"], "title": "Arsip: Komisi 3X Shopee", "body": "Ditolak. Promo berakhir 10 Nov; file disimpan sebagai jejak audit.", "tags": [["ditolak","n"]], "ref": "agents/muse/2026-11-05-komisi-3x-shopee.md" }
-    ]}
+    {
+      "id": "todo",
+      "title": "Antre",
+      "color": "muted",
+      "description": "Draf yang belum disentuh reviewer.",
+      "cards": [
+        {
+          "agents": [
+            "chatgpt",
+            "claude"
+          ],
+          "title": "Kenapa AI bisa jawab salah dengan percaya diri?",
+          "body": "Belum dicek fakta. Bukan prioritas minggu 1.",
+          "tags": [
+            [
+              "draf",
+              "n"
+            ]
+          ],
+          "ref": "agents/chatgpt/2026-11-05-ai-bisa-yakin-tapi-salah.md"
+        },
+        {
+          "agents": [
+            "chatgpt"
+          ],
+          "title": "Calendar konten 30 hari & editorial brief",
+          "body": "Mandat menuntut maks 3 topik/minggu dipilih tiap Senin. Belum ada file calendar di repo.",
+          "tags": [
+            [
+              "belum mulai",
+              "n"
+            ]
+          ],
+          "ref": "strategy/"
+        }
+      ]
+    },
+    {
+      "id": "in_progress",
+      "title": "Dikerjakan",
+      "color": "info",
+      "description": "Ada pemilik dan sedang bergerak.",
+      "cards": [
+        {
+          "agents": [
+            "chatgpt"
+          ],
+          "title": "Revisi USB-C (carousel)",
+          "body": "Wajib: jawab hook dengan angka kecepatan (480 Mbps s/d 80 Gbps) dan masukkan port HP/laptop ke checklist slide 5. 0 klaim salah.",
+          "tags": [
+            [
+              "revisi",
+              "warn"
+            ],
+            [
+              "batas 16 Nov",
+              "bad"
+            ]
+          ],
+          "ref": "review/2026-11-05-usb-c-bukan-jaminan.review.md"
+        },
+        {
+          "agents": [
+            "chatgpt"
+          ],
+          "title": "Revisi Passkey (video pendek)",
+          "body": "Wajib: hapus em dash, potong naskah ke ≤115 kata (kini ~63 detik vs target 40–50), beri sumber lokasi kunci privat/publik.",
+          "tags": [
+            [
+              "revisi",
+              "warn"
+            ],
+            [
+              "batas 16 Nov",
+              "bad"
+            ]
+          ],
+          "ref": "review/2026-11-05-passkey-bukan-password.review.md"
+        },
+        {
+          "agents": [
+            "muse"
+          ],
+          "title": "5 draf Muse menunggu revisi",
+          "body": "Apple 10-K, GoTo LLM 27B, kacamata Meta AI, RAM langka 2030, Fosi BT20A. Sesuai aturan 12 Nov, otomatis ditolak 15 Nov bila tidak disentuh.",
+          "tags": [
+            [
+              "revisi",
+              "warn"
+            ],
+            [
+              "ditolak 15 Nov",
+              "bad"
+            ]
+          ],
+          "ref": "agents/muse/"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Motion video 01 & 02",
+          "body": "Dikerjakan di vault Obsidian, belum masuk production/. Berikutnya setelah paket carousel.",
+          "tags": [
+            [
+              "di luar repo",
+              "info"
+            ]
+          ],
+          "ref": "vault: assets/video-01, video-02"
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Menunggu Review / Approval",
+      "color": "warn",
+      "description": "Selesai dibuat, butuh keputusan orang lain.",
+      "cards": [
+        {
+          "agents": [
+            "owner",
+            "claude"
+          ],
+          "title": "PR #8 · Paket final Prompt Caching",
+          "body": "14 aset (IG 4:5 + TikTok 9:16), harga dicek ulang 13 Nov, hash f8bcb578c3d6. Belum bisa diapprove sampai @mhysn_id terverifikasi.",
+          "tags": [
+            [
+              "menunggu akun",
+              "warn"
+            ],
+            [
+              "hash siap",
+              "ok"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/8"
+        },
+        {
+          "agents": [
+            "hermes",
+            "claude",
+            "owner"
+          ],
+          "title": "PR #5 · Mesin approval studio-approve",
+          "body": "Review CTO menutup 2 celah: claim bisa lolos setelah aset diganti, dan review 'revisi' bisa diapprove. 27 test OK. Tunggu cek SOP ChatGPT.",
+          "tags": [
+            [
+              "siap merge",
+              "ok"
+            ],
+            [
+              "27 test",
+              "n"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/5"
+        },
+        {
+          "agents": [
+            "claude",
+            "owner"
+          ],
+          "title": "PR #7 · sync-to-vault v2 (P0-A)",
+          "body": "Hapus hanya via manifest + karantina, guard 60%, state PC terpisah. Sandbox 18/18 (v1: 6/18). Deploy bersama C4.",
+          "tags": [
+            [
+              "siap merge",
+              "ok"
+            ],
+            [
+              "belum deploy",
+              "warn"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/7"
+        },
+        {
+          "agents": [
+            "claude",
+            "chatgpt"
+          ],
+          "title": "PR #6 · Review USB-C & Passkey",
+          "body": "Keduanya revisi, 0 klaim salah. Sumber primer USB-IF, FIDO, W3C, Google, Apple, Microsoft.",
+          "tags": [
+            [
+              "siap merge",
+              "ok"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/6"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "PR #4 · Tautan board di AGENTS.md",
+          "body": "Semua agen membaca board.json sebelum kerja.",
+          "tags": [
+            [
+              "siap merge",
+              "ok"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/4"
+        },
+        {
+          "agents": [
+            "hermes",
+            "claude"
+          ],
+          "title": "Audit server + remediation plan Hermes",
+          "body": "Sudah direview CTO (C6) di PR #7. Branch Hermes belum punya PR.",
+          "tags": [
+            [
+              "branch tanpa PR",
+              "warn"
+            ]
+          ],
+          "ref": "docs/hermes-audit-reports-2026-11-12"
+        },
+        {
+          "agents": [
+            "hermes",
+            "chatgpt"
+          ],
+          "title": "Rekomendasi Social Media Manager",
+          "body": "Perlu dinilai CEO.",
+          "tags": [
+            [
+              "branch tanpa PR",
+              "warn"
+            ]
+          ],
+          "ref": "docs/hermes-smm-recommendations-2026-11-12"
+        }
+      ]
+    },
+    {
+      "id": "blocked",
+      "title": "Terhambat",
+      "color": "bad",
+      "description": "Blocker dari audit 12 Nov. Harus dibuktikan di server/akun, bukan di GitHub.",
+      "cards": [
+        {
+          "agents": [
+            "hermes"
+          ],
+          "title": "Skrip sync bisa menghapus file di Studio/",
+          "body": "Patch v2 siap di PR #7 (manifest, karantina, guard). Menunggu merge + deploy oleh Hermes.",
+          "tags": [
+            [
+              "blocker 1",
+              "bad"
+            ],
+            [
+              "patch siap",
+              "ok"
+            ]
+          ],
+          "ref": "scripts/sync-to-vault.sh"
+        },
+        {
+          "agents": [
+            "hermes"
+          ],
+          "title": "Retry & antrean saat push gagal",
+          "body": "v2 memisahkan state server/PC dan mengantre ulang dari commit terakhir yang sampai. Sisa: mirror-obsidian.sh harus keluar 20 saat PC offline (C4, di server).",
+          "tags": [
+            [
+              "blocker 2",
+              "bad"
+            ],
+            [
+              "sebagian",
+              "warn"
+            ]
+          ],
+          "ref": "mirror-obsidian.sh"
+        },
+        {
+          "agents": [
+            "hermes"
+          ],
+          "title": "Cron belum terbukti terpasang",
+          "body": "Jadwal di SISTEM.md masih rencana. Cek konfigurasi job, timezone, log.",
+          "tags": [
+            [
+              "blocker 3",
+              "bad"
+            ]
+          ],
+          "ref": "SISTEM.md"
+        },
+        {
+          "agents": [
+            "muse",
+            "owner"
+          ],
+          "title": "Hak upload Muse",
+          "body": "Carousel IG dan video TikTok: bisa. Reels IG dan penjadwalan: belum terbukti sampai posting nyata pertama.",
+          "tags": [
+            [
+              "blocker 4",
+              "bad"
+            ],
+            [
+              "sebagian lolos",
+              "warn"
+            ]
+          ],
+          "ref": "agents/muse/reports/MUSE-SOCIAL-ACCESS-AUDIT-2026-11-12.md"
+        },
+        {
+          "agents": [
+            "owner"
+          ],
+          "title": "Handle @mhysn_id & wordmark final",
+          "body": "Kini juga menahan paket Prompt Caching (gate G7). Aset brand final belum ada di repo.",
+          "tags": [
+            [
+              "blocker 5",
+              "bad"
+            ]
+          ],
+          "ref": "brand/mhysn-brand-guidelines.md"
+        },
+        {
+          "agents": [
+            "hermes",
+            "chatgpt"
+          ],
+          "title": "Analytics 48 jam / 7 hari",
+          "body": "Baru bisa jalan setelah ada URL publikasi pertama.",
+          "tags": [
+            [
+              "blocker 6",
+              "bad"
+            ],
+            [
+              "tergantung posting",
+              "n"
+            ]
+          ],
+          "ref": "published/"
+        }
+      ]
+    },
+    {
+      "id": "done",
+      "title": "Selesai",
+      "color": "ok",
+      "description": "Sudah di main.",
+      "cards": [
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Paket produksi pertama: Prompt Caching",
+          "body": "Carousel 7 slide, dua rasio, QC visual dan cek harga ulang. Template slide bisa dipakai ulang.",
+          "tags": [
+            [
+              "13 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/8"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Review CTO mesin approval + sync v2 + remediation",
+          "body": "2 celah approval ditutup, P0-A ditambal, laporan Hermes dijawab per tugas C1–C6.",
+          "tags": [
+            [
+              "13 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "agents/claude/2026-11-13-review-remediation-hermes.md"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Cek fakta USB-C & Passkey",
+          "body": "21 klaim diperiksa, 0 salah, 4 sebagian.",
+          "tags": [
+            [
+              "13 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "https://github.com/eMHaYasiN/mhysn-studio/pull/6"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Board progres online",
+          "body": "www.3mh4ysn.com/studio/ + board.json/board.md untuk agen.",
+          "tags": [
+            [
+              "13 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "https://www.3mh4ysn.com/studio/"
+        },
+        {
+          "agents": [
+            "chatgpt",
+            "owner"
+          ],
+          "title": "PR #1 · Struktur CEO & operasi editorial",
+          "body": "Mandat 30 hari, SOP approval & publishing, spesifikasi platform, 3 seri unggulan, spek dashboard approval Obsidian.",
+          "tags": [
+            [
+              "merged 12 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "strategy/ · brand/"
+        },
+        {
+          "agents": [
+            "chatgpt",
+            "owner"
+          ],
+          "title": "PR #2 · Cleanup & konsistensi dokumen",
+          "body": "Rekonsiliasi README/AGENTS/CLAUDE/SISTEM, hapus placeholder, audit 6 blocker.",
+          "tags": [
+            [
+              "merged 12 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "strategy/REPOSITORY-CLEANUP-AUDIT-2026-11-12.md"
+        },
+        {
+          "agents": [
+            "muse",
+            "owner"
+          ],
+          "title": "PR #3 · Trend Radar W46 + audit akses sosmed",
+          "body": "Bahan ide minggu ini dan bukti kemampuan upload Muse.",
+          "tags": [
+            [
+              "merged 12 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "agents/muse/reports/"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "SISTEM.md · desain besar MHYSN Studio",
+          "body": "Alur research → brief → draf → cek fakta → produksi → approval hash → upload → metrik.",
+          "tags": [
+            [
+              "12 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "SISTEM.md"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Rebrand Om Tekno → MHYSN",
+          "body": "Semua dokumen pindah ke @mhysn_id dan #MHYSN.",
+          "tags": [
+            [
+              "12 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "commit eb28c89"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Cek fakta 7 draf + aturan gaya antislop",
+          "body": "1 lolos, 6 revisi. Aturan gaya ditulis di AGENTS.md.",
+          "tags": [
+            [
+              "5 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "review/"
+        },
+        {
+          "agents": [
+            "claude"
+          ],
+          "title": "Kerangka repo + skrip sync ke vault",
+          "body": "Folder agents/review/approved/published, template draf & review, LF untuk skrip Linux.",
+          "tags": [
+            [
+              "5 Nov",
+              "ok"
+            ]
+          ],
+          "ref": "commit 248d66d"
+        },
+        {
+          "agents": [
+            "muse",
+            "claude"
+          ],
+          "title": "Arsip: Komisi 3X Shopee",
+          "body": "Ditolak. Promo berakhir 10 Nov; file disimpan sebagai jejak audit.",
+          "tags": [
+            [
+              "ditolak",
+              "n"
+            ]
+          ],
+          "ref": "agents/muse/2026-11-05-komisi-3x-shopee.md"
+        }
+      ]
+    }
   ],
   "timeline": [
-    ["2026-11-05", "Kerangka vault staging + skrip sync satu arah ke Obsidian Studio/."],
-    ["2026-11-05", "Muse kirim 6 draf, Hermes 1 draf, ChatGPT 3 explainer + daftar ide. Claude cek fakta 7 draf: 1 lolos (prompt caching), 6 revisi."],
-    ["2026-11-05", "Owner approve prompt caching; file approved/ ditulis Claude."],
-    ["2026-11-12", "Rebrand Om Tekno → MHYSN. approved/ ikut dibersihkan, jadi approval 5 Nov tidak berlaku lagi."],
-    ["2026-11-12", "PR #1: struktur CEO, mandat 30 hari, SOP approval, spesifikasi platform, series bible."],
-    ["2026-11-12", "PR #2: cleanup konsistensi dokumen + audit yang mencatat 6 blocker deployment."],
-    ["2026-11-12", "PR #3: Trend Radar W46 + audit akses sosmed Muse. Hermes push 3 branch tanpa PR."]
+    [
+      "2026-11-05",
+      "Kerangka vault staging + skrip sync satu arah ke Obsidian Studio/."
+    ],
+    [
+      "2026-11-05",
+      "Muse kirim 6 draf, Hermes 1 draf, ChatGPT 3 explainer + daftar ide. Claude cek fakta 7 draf: 1 lolos (prompt caching), 6 revisi."
+    ],
+    [
+      "2026-11-05",
+      "Owner approve prompt caching; file approved/ ditulis Claude."
+    ],
+    [
+      "2026-11-12",
+      "Rebrand Om Tekno → MHYSN. approved/ ikut dibersihkan, jadi approval 5 Nov tidak berlaku lagi."
+    ],
+    [
+      "2026-11-12",
+      "PR #1: struktur CEO, mandat 30 hari, SOP approval, spesifikasi platform, series bible."
+    ],
+    [
+      "2026-11-12",
+      "PR #2: cleanup konsistensi dokumen + audit yang mencatat 6 blocker deployment."
+    ],
+    [
+      "2026-11-12",
+      "PR #3: Trend Radar W46 + audit akses sosmed Muse. Hermes push 3 branch tanpa PR."
+    ],
+    [
+      "2026-11-13",
+      "Board online di 3mh4ysn.com/studio. PR #4–#8: tautan board, review mesin approval, cek fakta USB-C/Passkey, sync v2, paket produksi Prompt Caching."
+    ]
   ]
 }
