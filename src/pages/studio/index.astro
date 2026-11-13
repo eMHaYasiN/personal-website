@@ -1,0 +1,200 @@
+---
+// Papan progres MHYSN Studio. Data tunggal: src/data/studio-board.json
+// Dirender statis supaya agen tanpa JavaScript tetap bisa membaca seluruh isi.
+import board from "../../data/studio-board.json";
+
+const agentColor = { claude: "--a-claude", chatgpt: "--a-chatgpt", muse: "--a-muse", hermes: "--a-hermes", owner: "--a-owner" };
+const colColor = { muted: "--muted", info: "--info", warn: "--warn", bad: "--bad", ok: "--ok" };
+const pct = (k) => Math.min(100, Math.round((k.value / k.target) * 1000) / 10);
+const fmtDate = (d) => new Date(d + "T00:00:00").toLocaleDateString("id-ID", { day: "2-digit", month: "short" });
+const totalCards = board.columns.reduce((n, c) => n + c.cards.length, 0);
+---
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{board.title}</title>
+<meta name="description" content={`Progres repo ${board.repo} per ${board.snapshot}. Versi mesin: /studio/board.json dan /studio/board.md.`}>
+<link rel="alternate" type="application/json" href="/studio/board.json" title="Board JSON">
+<link rel="alternate" type="text/markdown" href="/studio/board.md" title="Board Markdown">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@600;700&display=swap">
+<style is:global>
+:root{
+  --bg:#f3f4f2; --surface:#ffffff; --sunken:#e8eae6; --fg:#1b1f1d; --muted:#5c645f; --line:#d6dad4;
+  --accent:#1f6f5c;
+  --ok:#2f7a3d; --ok-soft:#e1f1e3; --warn:#9a6200; --warn-soft:#fbefd6; --bad:#b0362b; --bad-soft:#f8e1de; --info:#2d5d9f; --info-soft:#e0e9f6;
+  --a-claude:#b4552f; --a-chatgpt:#2f7a63; --a-muse:#7b4bb3; --a-hermes:#2d5d9f; --a-owner:#4a4f4c;
+  --display:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#141716; --surface:#1d2120; --sunken:#181b1a; --fg:#e7ebe8; --muted:#9aa49e; --line:#2f3533;
+  --accent:#5cc2a6;
+  --ok:#7ccf89; --ok-soft:#1d3322; --warn:#e8b45a; --warn-soft:#3a2e15; --bad:#f08a7f; --bad-soft:#3d1f1c; --info:#8fb5ea; --info-soft:#1c2a3d;
+  --a-claude:#e8946c; --a-chatgpt:#6fcdab; --a-muse:#bb98ea; --a-hermes:#8fb5ea; --a-owner:#b9c0bc;
+  color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1480px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0}
+code{font-family:var(--mono);font-size:12px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:flex-end}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.01em;margin-top:4px;font-weight:700}
+.sub{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.stamp{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.summary{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.summary{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;min-width:0}
+.panel h2{font-size:15px;margin-bottom:12px;font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi .v{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums;line-height:1.1;font-weight:600}
+.kpi .v small{font-size:14px;color:var(--muted);font-family:var(--body);font-weight:400}
+.kpi .l{font-size:12px;color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--sunken);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar.zero{outline:1px solid var(--bad-soft)}
+.verdict{margin:16px 0 0;padding:10px 12px;border-radius:8px;background:var(--warn-soft);font-size:13px}
+ol.next{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+ol.next .who{display:block;font-size:11px;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar span.lbl{font-size:12px;color:var(--muted);margin-right:4px}
+.fbtn{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:4px 12px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.fbtn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:1240px){.board{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.board{grid-template-columns:1fr}}
+.col{background:var(--sunken);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0;border-top:3px solid var(--c)}
+.col-h{display:flex;justify-content:space-between;align-items:baseline;padding:4px 4px 0}
+.col-h h3{font-size:13px;letter-spacing:.02em;font-weight:600}
+.col-h .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.col-d{font-size:12px;color:var(--muted);padding:0 4px 4px;margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card h4{font-size:13.5px;font-weight:600;line-height:1.35;font-family:var(--body)}
+.card p{margin:0;font-size:12.5px;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ag{font-size:11px;font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.tag{font-size:11px;border-radius:4px;padding:1px 6px;font-weight:500}
+.t-ok{background:var(--ok-soft);color:var(--ok)} .t-warn{background:var(--warn-soft);color:var(--warn)}
+.t-bad{background:var(--bad-soft);color:var(--bad)} .t-info{background:var(--info-soft);color:var(--info)}
+.t-n{background:var(--sunken);color:var(--muted)}
+.ref{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all}
+.empty{font-size:12px;color:var(--muted);padding:8px 4px;margin:0}
+.agentbox{font-size:13px}
+.agentbox ul{margin:8px 0 0;padding-left:18px}
+details.arch{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+details.arch summary{cursor:pointer;font-family:var(--display);font-weight:600}
+.timeline{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.timeline li{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;font-size:13px}
+.timeline time{font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Laporan CTO untuk Owner · repo {board.repo}</div>
+      <h1>{board.title}</h1>
+      <p class="sub">Posisi semua pekerjaan di repo per {board.snapshot}: konten di pipeline, branch yang menunggu review, dan blocker sebelum posting pertama.</p>
+    </div>
+    <div class="stamp">snapshot {board.snapshot}<br>main @ {board.main_commit} · {totalCards} kartu</div>
+  </header>
+
+  <section class="summary">
+    <div class="panel">
+      <h2>Mandat 30 hari ({board.mandate.period})</h2>
+      <div class="kpis">
+        {board.mandate.kpis.map((k) => (
+          <div class="kpi">
+            <div class="v">{k.value}<small> / {k.target}</small></div>
+            <div class="l">{k.label}</div>
+            <div class={k.value === 0 ? "bar zero" : "bar"}><i style={`width:${pct(k)}%`}></i></div>
+          </div>
+        ))}
+      </div>
+      <p class="verdict"><b>Status:</b> {board.mandate.verdict}</p>
+    </div>
+    <div class="panel">
+      <h2>Langkah berikutnya menurut CTO</h2>
+      <ol class="next">
+        {board.next_steps.map((s) => <li>{s.text}<span class="who">{s.who}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <div class="toolbar" role="group" aria-label="Saring menurut penanggung jawab">
+    <span class="lbl">Saring:</span>
+    <button class="fbtn" data-f="all" aria-pressed="true">Semua</button>
+    {Object.entries(board.agents).map(([id, a]) => (
+      <button class="fbtn" data-f={id} aria-pressed="false"><i class="dot" style={`background:var(${agentColor[id]})`}></i>{a.name} · {a.role.split(" ")[0]}</button>
+    ))}
+  </div>
+
+  <main class="board">
+    {board.columns.map((col) => (
+      <section class="col" style={`--c:var(${colColor[col.color]})`} aria-label={col.title} data-col={col.id}>
+        <div class="col-h"><h3>{col.title}</h3><span class="n">{col.cards.length}</span></div>
+        <p class="col-d">{col.description}</p>
+        {col.cards.map((c) => (
+          <article class="card" data-agents={c.agents.join(" ")}>
+            <div class="meta">
+              {c.agents.map((a) => <span class="ag"><i class="dot" style={`background:var(${agentColor[a]})`}></i>{board.agents[a].name}</span>)}
+            </div>
+            <h4>{c.title}</h4>
+            <p>{c.body}</p>
+            <div class="meta">{c.tags.map(([t, k]) => <span class={`tag t-${k}`}>{t}</span>)}</div>
+            <div class="ref">{c.ref}</div>
+          </article>
+        ))}
+        <p class="empty" hidden>Tidak ada kartu untuk filter ini.</p>
+      </section>
+    ))}
+  </main>
+
+  <section class="panel agentbox" aria-label="Untuk agen">
+    <h2>Untuk agen (Claude, ChatGPT, Muse, Hermes)</h2>
+    Baca versi mesin, isinya sama dengan halaman ini:
+    <ul>
+      <li><a href="/studio/board.json"><code>https://www.3mh4ysn.com/studio/board.json</code></a> · JSON terstruktur (schema <code>{board.schema}</code>)</li>
+      <li><a href="/studio/board.md"><code>https://www.3mh4ysn.com/studio/board.md</code></a> · Markdown ringkas</li>
+    </ul>
+    <p style="margin:8px 0 0;color:var(--muted)">{board.how_to_update}</p>
+  </section>
+
+  <details class="arch">
+    <summary>Riwayat repo</summary>
+    <ul class="timeline">
+      {board.timeline.map(([d, t]) => <li><time datetime={d}>{fmtDate(d)}</time><span>{t}</span></li>)}
+    </ul>
+  </details>
+
+  <footer>Sumber: git log, gh pr list, frontmatter status tiap draf, strategy/REPOSITORY-CLEANUP-AUDIT-2026-11-12.md, strategy/CEO-MANDATE-2026-11-12.md. Dikelola oleh {board.maintainer}.</footer>
+</div>
+<script is:inline>
+document.querySelectorAll(".fbtn").forEach(function(b){b.addEventListener("click",function(){
+  var f=b.dataset.f;
+  document.querySelectorAll(".fbtn").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+  document.querySelectorAll(".col").forEach(function(col){
+    var shown=0;
+    col.querySelectorAll(".card").forEach(function(c){var ok=f==="all"||c.dataset.agents.split(" ").indexOf(f)>-1;c.hidden=!ok;if(ok)shown++});
+    col.querySelector(".n").textContent=shown;
+    col.querySelector(".empty").hidden=shown>0;
+  });
+})});
+</script>
+</body>
+</html>
